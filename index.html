@@ -208,10 +208,11 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .chip input{border-radius:var(--radius)}
 .chip:active span{transform:scale(.97)}
 @media (hover:hover){.chip input:not(:checked):hover + span{background:rgba(30,24,12,.34)}}
+.finder__card{background:var(--ivory);color:var(--ink);border-radius:var(--radius);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:24px}
 .finder__out{display:flex;flex-direction:column;gap:8px}
 .finder__rec{font:400 var(--t-lead)/1.3 var(--serif)}
 .finder__desc{max-width:36ch}
-.finder__price{font-size:var(--t-small);color:var(--on-dark-muted)}
+.finder__price{font-size:var(--t-small);color:var(--muted)}
 .finder__rec strong{font-weight:600}
 .finder__actions{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
 
@@ -556,14 +557,16 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <label class="chip"><input type="radio" name="need" value="feet"><span>Tired feet, back and head</span></label>
           </div>
         </fieldset>
+        <div class="finder__card">
         <div class="finder__out" id="finderOut" aria-live="polite">
           <p class="finder__rec">We recommend <strong id="recName">Swedish</strong></p>
           <p class="finder__desc" id="recDesc">An oil-based massage for relaxation and stress relief.</p>
           <p class="finder__price num" id="recPrice">From ₱1,150 · 1 to 2 hours</p>
         </div>
         <div class="finder__actions">
-          <a class="btn btn--light" id="finderView" href="#menu-qc-swedish">View Swedish prices <span class="arrow" aria-hidden="true">↓</span></a>
+          <a class="btn" id="finderView" href="#menu-qc-swedish">View Swedish prices <span class="arrow" aria-hidden="true">↓</span></a>
           <a class="link" id="finderBook" href="#book">or book now</a>
+        </div>
         </div>
       </form>
 
@@ -637,33 +640,44 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <li data-t="footback" id="menu-bgc-footback">
               <div class="menu__row"><h3>Foot &amp; Back</h3><span class="menu__flag">Our best seller</span></div>
               <p class="menu__desc">Full body care · Dry massage · Foot ventosa · Foot stick</p>
-              <p class="menu__durs num">1 hr 30 min · 2 hr</p>
+              <ul class="rates num">
+                <li><span>1 hr 30 min</span><span>₱1,388</span></li>
+                <li><span>2 hr</span><span>₱1,588</span></li>
+              </ul>
               <p class="menu__match">Matches what you chose</p>
             </li>
             <li data-t="swedish" id="menu-bgc-swedish">
               <div class="menu__row"><h3>Swedish</h3></div>
               <p class="menu__desc">Full body care · Oil-based massage · Relaxation · Stress relief</p>
-              <p class="menu__durs num">1 hr · 1 hr 30 min · 2 hr</p>
+              <ul class="rates num">
+                <li><span>1 hr</span><span>₱1,350</span></li>
+                <li><span>1 hr 30 min</span><span>₱1,588</span></li>
+                <li><span>2 hr</span><span>₱1,888</span></li>
+              </ul>
               <p class="menu__match">Matches what you chose</p>
             </li>
             <li data-t="shiatsu" id="menu-bgc-shiatsu">
               <div class="menu__row"><h3>Shiatsu</h3></div>
               <p class="menu__desc">Full body care · Dry massage · Pressure point · Deep tissue</p>
-              <p class="menu__durs num">1 hr · 1 hr 30 min · 2 hr</p>
+              <ul class="rates num">
+                <li><span>1 hr</span><span>₱1,450</span></li>
+                <li><span>1 hr 30 min</span><span>₱1,688</span></li>
+                <li><span>2 hr</span><span>₱1,988</span></li>
+              </ul>
               <p class="menu__match">Matches what you chose</p>
             </li>
           </ul>
           <div class="extras">
             <h3 class="extras__title">Stone massage</h3>
             <ul class="rates num">
-              <li><span>Stone Massage</span><span>1 hr 20 min</span></li>
+              <li><span>Stone Massage</span><span>1 hr 20 min · ₱1,688</span></li>
             </ul>
             <h3 class="extras__title">Short treatments</h3>
             <ul class="rates num">
-              <li><span>Foot Massage</span><span>45 min</span></li>
-              <li><span>Foot Spa<small>Before 6 pm only</small></span><span>45 min</span></li>
-              <li><span>Ear Candling</span><span>30 min</span></li>
-              <li><span>Back Ventosa</span><span>30 min</span></li>
+              <li><span>Foot Massage</span><span>45 min · ₱988</span></li>
+              <li><span>Foot Spa<small>Before 6 pm only</small></span><span>45 min · ₱988</span></li>
+              <li><span>Ear Candling</span><span>30 min · ₱899</span></li>
+              <li><span>Back Ventosa</span><span>30 min · ₱899</span></li>
             </ul>
           </div>
         </div>
@@ -942,17 +956,21 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
 /* ---- the finder ---- */
 (function finder(){
   const REC = {
-    relax:   { id: 'swedish',  name: 'Swedish',     desc: 'An oil-based massage for relaxation and stress relief.',               price: 'From ₱1,150 · 1 to 2 hours' },
-    tension: { id: 'shiatsu',  name: 'Shiatsu',     desc: 'A dry massage that works pressure points and deep tissue.',            price: 'From ₱1,250 · 1 to 2 hours' },
-    feet:    { id: 'footback', name: 'Foot & Back', desc: 'Our best seller: a dry massage with foot ventosa and a foot stick.',   price: 'From ₱1,188 · 1 hr 30 min or 2 hours' }
+    relax:   { id: 'swedish',  name: 'Swedish',     desc: 'An oil-based massage for relaxation and stress relief.' },
+    tension: { id: 'shiatsu',  name: 'Shiatsu',     desc: 'A dry massage that works pressure points and deep tissue.' },
+    feet:    { id: 'footback', name: 'Foot & Back', desc: 'Our best seller: a dry massage with foot ventosa and a foot stick.' }
   };
+  const FROM = { qc: { swedish: '₱1,150', shiatsu: '₱1,250', footback: '₱1,188' },
+                 bgc: { swedish: '₱1,350', shiatsu: '₱1,450', footback: '₱1,388' } };
+  const LENGTH = { swedish: '1 to 2 hours', shiatsu: '1 to 2 hours', footback: '1 hr 30 min or 2 hours' };
   const form = document.getElementById('finder');
   const $ = id => document.getElementById(id);
   function update(){
     const r = REC[form.need.value];
     $('recName').textContent = r.name;
     $('recDesc').textContent = r.desc;
-    $('recPrice').textContent = r.price;
+    const from = (FROM[window.CD_BRANCH || 'qc'] || {})[r.id];
+    $('recPrice').textContent = from ? `From ${from} · ${LENGTH[r.id]}` : LENGTH[r.id];
     $('finderView').href = `#menu-${window.CD_BRANCH || 'qc'}-${r.id}`;
     $('finderView').firstChild.textContent = `View ${r.name} prices `;
     $('finderBook').href = bookHref(`Hi Chungdam Spa, I'd like to book ${r.name}. Date and time: `);
@@ -971,10 +989,10 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
           embed: MAPS + 'Chungdam+Spa+-+Panay&ll=14.6361512,121.0266893',
           link: 'https://www.google.com/maps/place/Chungdam+Spa+-+Panay/@14.6361512,121.0266893,17z/data=!4m6!3m5!1s0x3397b7716d79077d:0xcde2c7cc1deedfd1!8m2!3d14.6361512!4d121.0266893',
           phone: '0995 574 2688', tel: '+639955742688', social: 'qc' },
-    bgc: { name: 'Chungdam Spa BGC', addr: 'Bonifacio Global City<br>Taguig, Metro Manila', where: 'Bonifacio Global City, Taguig',
+    bgc: { name: 'Chungdam Spa BGC', addr: '2D, The Grand Hamptons Tower II<br>1st Ave, Taguig, 1634 Metro Manila', where: 'The Grand Hamptons Tower II, 1st Ave, Taguig',
           embed: MAPS + 'Chungdam+Spa+BGC&ll=14.5544377,121.0441223',
           link: 'https://www.google.com/maps/place/Chungdam+Spa+BGC/@14.5544377,121.0441223,17z/data=!4m6!3m5!1s0x3397c9a54c01c681:0x824772b65cfcaea2!8m2!3d14.5544377!4d121.0441223',
-          phone: '', social: 'bgc' },
+          phone: '0995 672 0448', tel: '+639956720448', social: 'bgc' },
     banawe: { name: 'Chungdam Spa Banawe', addr: 'D. Tuazon, Quezon City', where: 'D. Tuazon, Quezon City',
           embed: MAPS + 'Chungdam+Spa+-+D.+Tuazon&ll=14.6230674,121.0027676',
           link: 'https://www.google.com/maps/place/Chungdam+Spa+-+D.+Tuazon/@14.6230674,121.0027676,17z/data=!4m6!3m5!1s0x3397b7ed53b832f7:0xf50016c279bb20fc!8m2!3d14.6230674!4d121.0027676',
