@@ -313,7 +313,6 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .loc__facts a{text-decoration:none}
 .loc-tabs{justify-content:flex-start;margin-top:-8px}
 .loc__panel{display:flex;flex-direction:column;gap:24px}
-.loc__note{font-size:var(--t-small);color:var(--muted)}
 @media (hover:hover){.loc__facts a:hover{text-decoration:underline}}
 
 /* ---------- faq ---------- */
@@ -847,8 +846,6 @@ details[open] > summary .chev{transform:rotate(180deg)}
           <dt>Deposit</dt><dd>None needed to book</dd>
           <dt id="locSocialDt">Social</dt><dd id="locSocialDd" class="social-list">Instagram · Facebook</dd>
         </dl>
-        <p class="loc__note">All three branches keep the same hours.</p>
-        <div><a class="btn" id="locMapLink" href="https://www.google.com/maps/place/Chungdam+Spa+-+Panay/@14.6361512,121.0266893,17z/data=!4m6!3m5!1s0x3397b7716d79077d:0xcde2c7cc1deedfd1!8m2!3d14.6361512!4d121.0266893" target="_blank" rel="noopener">Open in Google Maps <span class="arrow" aria-hidden="true">→</span></a></div>
         </div>
       </div>
     </div>
@@ -995,7 +992,6 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
     $('locAddr').innerHTML = b.addr;
     const map = $('locMap');
     if (map) { map.src = b.embed; map.title = 'Map showing Chungdam Spa at ' + b.where; }
-    $('locMapLink').href = b.link;
     const st = $('locStatic');
     if (st) { st.href = b.link; st.querySelector('strong').textContent = b.name; st.querySelector('span').textContent = b.where; }
     $('locPhoneDt').hidden = $('locPhoneDd').hidden = !b.phone;
