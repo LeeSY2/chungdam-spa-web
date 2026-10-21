@@ -317,6 +317,8 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .loc__facts{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;margin:0}
 .loc__facts dt{color:var(--muted);font-size:15px}
 .loc__facts dd{margin:0}
+.loc__facts .is-empty{visibility:hidden}
+#locAddr{display:block;min-height:2.7em} /* every branch keeps two address lines of space */
 .loc__facts a{text-decoration:none}
 .loc-tabs{justify-content:flex-start;margin-top:-8px}
 .loc__panel{display:flex;flex-direction:column;gap:24px}
@@ -1019,11 +1021,11 @@ document.querySelectorAll('#bookMain, #finderBook').forEach(a => { if (!a.href.s
     if (map) { map.src = b.embed; map.title = 'Map showing Chungdam Spa at ' + b.where; }
     const st = $('locStatic');
     if (st) { st.href = b.link; st.querySelector('strong').textContent = b.name; st.querySelector('span').textContent = b.where; }
-    $('locPhoneDt').hidden = $('locPhoneDd').hidden = !b.phone;
-    if (b.phone) $('locPhoneDd').innerHTML = `<a class="num" href="tel:${b.tel}">${b.phone}</a>`;
+    $('locPhoneDt').classList.toggle('is-empty', !b.phone); $('locPhoneDd').classList.toggle('is-empty', !b.phone);
+    $('locPhoneDd').innerHTML = b.phone ? `<a class="num" href="tel:${b.tel}">${b.phone}</a>` : '&nbsp;';
     const social = b.social && SOCIAL[b.social]();
-    $('locSocialDt').hidden = $('locSocialDd').hidden = !social;
-    if (social) $('locSocialDd').innerHTML = social;
+    $('locSocialDt').classList.toggle('is-empty', !social); $('locSocialDd').classList.toggle('is-empty', !social);
+    $('locSocialDd').innerHTML = social || '&nbsp;';
   }
   function select(code, focusTab, anchor){
     // the two tab rows resize each other's sections; keep the row the visitor used still on screen
@@ -1032,7 +1034,7 @@ document.querySelectorAll('#bookMain, #finderBook').forEach(a => { if (!a.href.s
     ['qc', 'bgc', 'banawe'].forEach(c => { const panel = $('branch-' + c); if (panel) panel.hidden = c !== code; });
     window.CD_BRANCH = code;
     showLocation(code);
-    if (anchor) scrollBy(0, anchor.getBoundingClientRect().top - before);
+    if (anchor) window.scrollBy({ top: Math.round(anchor.getBoundingClientRect().top - before), behavior: 'instant' });
     if (focusTab) focusTab.focus({ preventScroll: true });
     document.dispatchEvent(new Event('branchchange'));
   }
