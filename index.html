@@ -143,15 +143,16 @@ p{margin:0;text-wrap:pretty}
 .intro{padding-top:var(--section);position:relative}
 /* diagonal spread: headline top-left, photo top-right, photo bottom-left, copy bottom-right */
 .intro .grid{grid-template-rows:auto auto;row-gap:clamp(24px,3vw,48px)}
-.intro h2{grid-column:1 / span 6;grid-row:1;align-self:end;font-size:clamp(46px,5.4vw,84px);font-weight:400;padding-bottom:clamp(8px,2vw,32px)}
+.intro__copy{grid-column:1 / span 5;grid-row:1;align-self:end;display:flex;flex-direction:column;gap:clamp(20px,2.4vw,36px);padding-bottom:clamp(8px,2vw,32px)}
+.intro h2{font-size:clamp(46px,5.4vw,84px);font-weight:400}
+.intro__lead{font:400 var(--t-lead)/1.42 var(--serif);max-width:30ch}
 .intro__big{grid-column:7 / -1;grid-row:1;aspect-ratio:4/3;margin-right:calc(var(--m) * -1)}
 .intro__small{grid-column:1 / span 6;grid-row:2;aspect-ratio:4/3;margin-left:calc(var(--m) * -1)}
 .intro__small > img{object-position:72% 50%}
-.intro__copy{grid-column:8 / -1;grid-row:2;display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding-top:clamp(8px,2vw,32px)}
-.intro__lead{font:400 var(--t-lead)/1.42 var(--serif);max-width:30ch}
-.intro__mark{width:100%;aspect-ratio:662 / 72;
-  background:rgba(58,42,32,.075); /* tint, not opacity: the reveal animation owns opacity */
-  -webkit-mask:var(--logo-mask) left bottom / contain no-repeat;mask:var(--logo-mask) left bottom / contain no-repeat}
+/* the magazine's small colour block: olive field with the logo pressed into it */
+.intro__block{grid-column:8 / span 3;grid-row:2;align-self:start;aspect-ratio:3/2;background:var(--olive);display:grid;place-items:center;padding:12%}
+.intro__mark{width:100%;aspect-ratio:662 / 72;background:rgba(244,238,228,.22);
+  -webkit-mask:var(--logo-mask) center / contain no-repeat;mask:var(--logo-mask) center / contain no-repeat}
 
 /* ---------- treatments ---------- */
 .treat{background:var(--olive);color:var(--on-dark);margin-top:var(--section);padding-block:var(--section)}
@@ -417,10 +418,11 @@ details[open] > summary .chev{transform:rotate(180deg)}
   .treat__head{order:1}
   .finder{order:2}
   .sheet{order:3}
-  .intro h2{padding-bottom:0;font-size:clamp(34px,10vw,46px)}
-  .intro__big{order:1;width:86%;justify-self:end}
-  .intro__copy{order:2;gap:32px;padding-top:0}
-  .intro__small{order:3;width:86%}
+  .intro h2{font-size:clamp(34px,10vw,46px)}
+  .intro__copy{padding-bottom:0}
+  .intro__big{width:86%;justify-self:end}
+  .intro__small{width:86%}
+  .intro__block{width:44%;justify-self:end;margin-top:-56px;position:relative;z-index:1}
   .finder{margin-top:40px}
   .sheet{margin-inline:calc(var(--m) * -1 + 10px);padding:32px 22px}
   .menu > li{margin-inline:-12px;padding-inline:12px}
@@ -527,7 +529,10 @@ details[open] > summary .chev{transform:rotate(180deg)}
   <!-- 03 INTRODUCTION -->
   <section class="intro wrap" aria-labelledby="intro-title">
     <div class="grid" data-reveal>
-      <h2 id="intro-title">Slow down. <span class="nw">You’re at Chungdam.</span></h2>
+      <div class="intro__copy">
+        <h2 id="intro-title">Slow down. <span class="nw">You’re at Chungdam.</span></h2>
+        <p class="intro__lead">Step away from the rush of the city and enjoy a moment designed entirely for rest. Chungdam Spa brings Korean-inspired care to Quezon City in a warm, comfortable space.</p>
+      </div>
       <figure class="ph intro__big" data-photo="intro-towels">
         <svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg>
         <img src="images/intro-towels.jpg" alt="Folded towels, a flower and massage oil on a wooden tray" loading="lazy" onerror="this.remove()">
@@ -538,10 +543,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
         <img src="images/intro-sign.jpg" alt="The Chungdam Spa sign on a lit wooden wall beside the reception" loading="lazy" onerror="this.remove()">
         <figcaption>Photo: reception sign (intro-sign.jpg)</figcaption>
       </figure>
-      <div class="intro__copy">
-        <p class="intro__lead">Step away from the rush of the city and enjoy a moment designed entirely for rest. Chungdam Spa brings Korean-inspired care to Quezon City in a warm, comfortable space.</p>
-        <div class="intro__mark" aria-hidden="true"></div>
-      </div>
+      <div class="intro__block" aria-hidden="true"><div class="intro__mark"></div></div>
     </div>
   </section>
 
