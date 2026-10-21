@@ -165,6 +165,8 @@ p{margin:0;text-wrap:pretty}
 .menu > li{position:relative;padding:28px 20px;margin-inline:-20px;transition:background-color 300ms ease}
 .menu > li + li,.extras__group{border-top:1px solid var(--sand-deep)} /* taste-skill-ignore: a printed menu sheet keeps its rules */
 .menu > li.is-match{background:var(--sand)}
+.menu > li.is-flash{animation:flash 1.4s var(--ease-out)}
+@keyframes flash{0%,30%{background:var(--sand-deep)}100%{background:var(--sand)}}
 .menu__row{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
 .menu h3{font-size:clamp(26px,2.3vw,34px);font-weight:500;letter-spacing:-.01em}
 .menu__price{font-size:16px;white-space:nowrap}
@@ -225,7 +227,6 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .step .ph{aspect-ratio:4/5}
 .step__n{display:block;font:400 clamp(30px,2.6vw,40px)/1 var(--serif);color:var(--olive);margin-bottom:10px}
 .step__text h3{font-size:clamp(22px,1.8vw,28px);font-weight:500;margin-bottom:8px}
-.step__fact{margin-top:12px;font-size:var(--t-small);font-weight:500;color:var(--olive-deep)}
 @media (max-width:1024px){.exp ol{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}}
 
 /* ---------- space (drag row) ---------- */
@@ -269,13 +270,15 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .reviews{background:var(--sand);padding-block:var(--section)}
 .reviews h2{grid-column:1 / span 6;font-size:var(--t-h2);font-weight:400}
 .reviews__more{grid-column:9 / -1;justify-self:end;align-self:end}
-.quote{margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.quote{margin:0;display:flex;flex-direction:column;gap:20px}
+.quote figcaption{margin-top:auto}
 .quote blockquote{margin:0;font:400 clamp(21px,1.8vw,26px)/1.32 var(--serif);max-width:32ch}
 .quote--1{grid-column:1 / span 4;margin-top:clamp(40px,5vw,64px)}
 .quote--2{grid-column:5 / span 4;margin-top:clamp(40px,5vw,64px)}
 .quote--3{grid-column:9 / span 4;margin-top:clamp(40px,5vw,64px)}
 .quote figcaption{font-size:15px;color:var(--muted)}
-.stars{width:98px;height:18px;color:var(--olive)}
+.rating{display:flex;align-items:center;gap:10px;font-size:var(--t-small);font-weight:500;color:var(--muted)}
+.stars{width:98px;height:18px;color:var(--olive);flex:0 0 auto}
 .todo{color:var(--muted)}
 
 /* ---------- booking ---------- */
@@ -723,17 +726,17 @@ details[open] > summary .chev{transform:rotate(180deg)}
       <!-- English wording below is re-translated from Google's Korean translation of each review.
            Replace with the original English text (use "See original") before launch. -->
       <figure class="quote quote--1" data-reveal>
-        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
+        <p class="rating"><svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span>5.0 on Google Maps</span></p>
         <blockquote><p>“Nothing stuffy like other spas. It felt as cozy as staying at a hotel, and the massage was the best. 10 out of 10!”</p></blockquote>
         <figcaption>Fatima Torres · Google review</figcaption>
       </figure>
       <figure class="quote quote--2" data-reveal>
-        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
+        <p class="rating"><svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span>5.0 on Google Maps</span></p>
         <blockquote><p>“I’m not usually a fan of dry massage, but this one was the exception. So thorough, and my knots really loosened.”</p></blockquote>
         <figcaption>Nikki Delos Santos-Francisco · Google review</figcaption>
       </figure>
       <figure class="quote quote--3" data-reveal>
-        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
+        <p class="rating"><svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span>5.0 on Google Maps</span></p>
         <blockquote><p>“Just had the best massage! Thanks to therapist Charlie, the stiffness was gone. The complimentary warm tea was great too.”</p></blockquote>
         <figcaption>Mark Rodriguez · Google review</figcaption>
       </figure>
@@ -751,7 +754,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-arrive.jpg" alt="A guest checking in at a softly lit reception desk" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: reception (exp-arrive.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door.</p><p class="step__fact">No deposit needed to book.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door.</p></div>
         </li>
         <li class="step step--2">
           <figure class="ph ph--olive" data-photo="exp-choose">
@@ -759,7 +762,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-choose.jpg" alt="A therapist showing a guest the treatment menu" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: choosing a treatment (exp-choose.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Pick a treatment by how your body feels today.</p><p class="step__fact">Request your therapist by name.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Pick a treatment by how your body feels today.</p></div>
         </li>
         <li class="step step--3">
           <figure class="ph ph--dark" data-photo="exp-relax">
@@ -767,7 +770,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-relax.jpg" alt="A massage in progress in a dim treatment room" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: therapy in progress (exp-relax.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace.</p><p class="step__fact">One group per room, freshly made.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace.</p></div>
         </li>
         <li class="step step--4">
           <figure class="ph" data-photo="exp-tea">
@@ -775,7 +778,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-tea.jpg" alt="A guest holding a cup of warm tea after a treatment" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: tea after treatment (exp-tea.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day.</p><p class="step__fact">Open daily until 1 AM.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day.</p></div>
         </li>
       </ol>
     </div>
@@ -960,6 +963,13 @@ document.querySelectorAll('#bookMain, #finderBook').forEach(a => { if (!a.href.s
     $('finderBook').href = bookHref(`Hi Chungdam Spa, I'd like to book ${r.name}. Date and time: `);
     document.querySelectorAll('.menu > li').forEach(li => li.classList.toggle('is-match', li.dataset.t === r.id));
   }
+  $('finderView').addEventListener('click', e => {
+    const item = document.querySelector($('finderView').getAttribute('href'));
+    if (!item) return;
+    e.preventDefault();
+    item.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    item.classList.remove('is-flash'); void item.offsetWidth; item.classList.add('is-flash');
+  });
   form.addEventListener('change', update);
   document.addEventListener('branchchange', update);
   update();
