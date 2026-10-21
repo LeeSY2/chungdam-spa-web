@@ -80,6 +80,8 @@ p{margin:0;text-wrap:pretty}
   .btn--olive:hover{background:var(--olive-deep)}
   .btn:hover .arrow{transform:translateX(3px)}
 }
+.link::after{content:"→";display:inline-block;margin-left:2px;transition:transform 200ms var(--ease-out)}
+@media (hover:hover){.link:hover::after{transform:translateX(3px)}}
 .link{font:500 15px/1.2 var(--sans);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em;
   display:inline-flex;align-items:center;gap:.5em;min-height:44px;transition:text-underline-offset 200ms var(--ease-out), opacity 200ms ease}
 @media (hover:hover){.link:hover{text-underline-offset:.5em}}
@@ -98,11 +100,13 @@ p{margin:0;text-wrap:pretty}
 .ph:has(> img) > figcaption{display:none}
 
 /* ---------- top bar (after hero) ---------- */
-.bar{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;
-  padding-inline:var(--m);background:var(--brown-deep);color:var(--on-dark);transform:translateY(-100%);transition:transform 360ms var(--ease-out)}
-.bar.is-on{transform:none}
+.bar{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px;
+  padding-inline:var(--m);background:transparent;color:var(--on-dark);transition:background-color 300ms ease}
+.bar.is-on{background:var(--brown-deep)}
+.bar .btn{transition:opacity 240ms ease,visibility 240ms,transform 160ms var(--ease-out),background-color 200ms ease}
+.bar:not(.is-on) .btn{opacity:0;visibility:hidden}
 .bar__mark{display:block;line-height:0}
-.bar__mark .logo{height:24px;width:auto}
+.bar__mark .logo{height:clamp(22px,2.2vw,30px);width:auto}
 .bar nav{display:flex;gap:28px;align-items:center}
 .bar nav a:not(.btn){font-size:15px;text-decoration:none}
 @media (hover:hover){.bar nav a:not(.btn):hover{text-decoration:underline}}
@@ -110,18 +114,13 @@ p{margin:0;text-wrap:pretty}
 
 /* ---------- hero ---------- */
 .hero{position:relative;height:clamp(600px,100svh,1000px);color:var(--on-dark);overflow:hidden;background:var(--brown-deep)}
-.hero .ph{position:absolute;inset:0;will-change:transform}
-.hero .ph > img{transform-origin:50% 60%}
+.hero .ph{position:absolute;inset:0}
+.hero .ph > img{transform-origin:50% 60%;will-change:transform;backface-visibility:hidden}
 .hero__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
   /* neutral scrim under text on the photograph */
   background:linear-gradient(to top, rgba(30,20,14,.62) 0%, rgba(30,20,14,.18) 42%, rgba(30,20,14,0) 60%), /* taste-skill-ignore */
              linear-gradient(to bottom, rgba(30,20,14,.35) 0%, rgba(30,20,14,0) 18%)} /* taste-skill-ignore */
 .hero__top{position:absolute;z-index:3;inset:0 0 auto 0;display:flex;justify-content:space-between;align-items:flex-start;padding:24px var(--m)}
-.hero__name{display:block;line-height:0}
-.hero__name .logo{height:clamp(24px,2.4vw,34px);width:auto}
-.hero__links{display:flex;gap:26px;font-size:15px}
-.hero__links a{text-decoration:none;padding-block:4px}
-@media (hover:hover){.hero__links a:hover{text-decoration:underline}}
 .hero__bottom{position:absolute;z-index:3;inset:auto 0 0 0;padding:0 var(--m) clamp(28px,5vh,56px);align-items:end}
 .hero h1{grid-column:1 / span 7;font-size:var(--t-display);line-height:1.12;font-weight:500}
 .hero__aside{grid-column:9 / span 4;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
@@ -141,9 +140,10 @@ p{margin:0;text-wrap:pretty}
 
 /* ---------- intro ---------- */
 .intro{padding-top:var(--section);position:relative}
+.intro .grid{grid-template-rows:auto 1fr}
 .intro h2{grid-column:1 / span 8;grid-row:1;font-size:clamp(46px,5.4vw,84px);font-weight:400;position:relative;z-index:2;padding-top:4vw}
 .intro__lead{grid-column:1 / span 5;grid-row:2;margin-top:40px;font:400 var(--t-lead)/1.42 var(--serif);max-width:30ch}
-.intro__big{grid-column:7 / -1;grid-row:1 / span 3;aspect-ratio:4/5;margin-right:calc(var(--m) * -1);align-self:start;margin-top:12vw}
+.intro__big{grid-column:7 / -1;grid-row:1 / span 2;aspect-ratio:4/5;margin-right:calc(var(--m) * -1);align-self:start;margin-top:12vw}
 .intro__small{grid-column:2 / span 4;grid-row:3;aspect-ratio:9/10;margin-top:64px}
 
 /* ---------- treatments ---------- */
@@ -161,8 +161,9 @@ p{margin:0;text-wrap:pretty}
 .branch-tabs button:active{transform:scale(.97)}
 @media (hover:hover){.branch-tabs button[aria-selected="false"]:hover{background:var(--sand-deep)}}
 .branch[hidden]{display:none}
-.menu{list-style:none;margin:clamp(32px,4vw,52px) 0 0;padding:0;display:flex;flex-direction:column;gap:28px}
-.menu > li{position:relative;padding:22px 20px 22px;margin-inline:-20px;transition:background-color 300ms ease}
+.menu{list-style:none;margin:clamp(28px,3vw,40px) 0 0;padding:0;display:flex;flex-direction:column}
+.menu > li{position:relative;padding:28px 20px;margin-inline:-20px;transition:background-color 300ms ease}
+.menu > li + li,.extras__group{border-top:1px solid var(--sand-deep)} /* taste-skill-ignore: a printed menu sheet keeps its rules */
 .menu > li.is-match{background:var(--sand)}
 .menu__row{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
 .menu h3{font-size:clamp(26px,2.3vw,34px);font-weight:500;letter-spacing:-.01em}
@@ -170,16 +171,16 @@ p{margin:0;text-wrap:pretty}
 .menu__desc{margin-top:8px;max-width:44ch;color:var(--ink)}
 .menu__flag{font-size:var(--t-small);font-weight:500;color:var(--olive-deep);white-space:nowrap}
 .menu__ko{margin-top:4px;font-size:var(--t-small);color:var(--muted)}
-.rates{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;max-width:440px}
+.rates{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
 .rates li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:16px}
 .rates li > span:last-child{white-space:nowrap;font-weight:500}
-.rates small{display:block;font-size:13px;color:var(--muted)}
-.menu__durs{margin-top:12px;font-weight:500}
-.extras{margin-top:clamp(36px,4vw,52px);padding-top:clamp(28px,3vw,40px);position:relative}
-.extras::before{content:"";position:absolute;top:0;left:0;width:48px;height:3px;background:var(--sand-deep)}
-.extras__title{font-size:clamp(22px,1.9vw,28px);font-weight:500;margin-top:28px}
-.extras__title:first-child{margin-top:0}
-.extras .rates{max-width:none;gap:14px}
+.rates small,.tag{display:inline-block;margin-left:10px;padding:3px 8px;border-radius:6px;background:var(--sand);font-size:13px;font-weight:500;color:var(--olive-deep);vertical-align:2px}
+.menu__durs{margin-top:14px;font-weight:500}
+.extras{border-top:1px solid var(--sand-deep)} /* taste-skill-ignore: menu sheet rule */
+.extras__group{padding-block:28px}
+.extras > .extras__group:first-child{border-top:0}
+.extras__title{font-size:clamp(26px,2.3vw,34px);font-weight:500;letter-spacing:-.01em}
+.extras .rates{gap:8px}
 .extras__note{margin-top:6px;font-size:var(--t-small);color:var(--muted)}
 .menu__match{display:none;margin-top:10px;font-size:var(--t-small);color:var(--olive-deep);font-weight:500}
 .menu > li.is-match .menu__match{display:block}
@@ -218,20 +219,14 @@ details[open] > summary .chev{transform:rotate(180deg)}
 
 /* ---------- experience ---------- */
 .exp{padding-top:var(--section)}
-.exp h2{grid-column:1 / span 8;grid-row:1;font-size:var(--t-h2);font-weight:400;align-self:start}
-.exp ol{list-style:none;margin:0;padding:0;display:contents}
-.step{display:contents}
-.step .ph{align-self:start}
-.step__text{align-self:start;max-width:34ch}
-.step__n{display:block;font:400 clamp(44px,4.4vw,68px)/1 var(--serif);color:var(--olive);margin-bottom:14px}
-.step__text h3{font-size:clamp(26px,2.2vw,32px);font-weight:500;margin-bottom:10px}
-.exp h2{margin-bottom:clamp(40px,5vw,72px)}
-.step--1 .ph,.step--3 .ph{grid-column:1 / span 7;aspect-ratio:3/2}
-.step--2 .ph,.step--4 .ph{grid-column:6 / -1;aspect-ratio:3/2}
-.step--1 .step__text,.step--3 .step__text{grid-column:9 / -1;align-self:center}
-.step--2 .step__text,.step--4 .step__text{grid-column:1 / span 4;grid-column-start:2;align-self:center}
-.step--1 > *{grid-row:2}.step--2 > *{grid-row:3}.step--3 > *{grid-row:4}.step--4 > *{grid-row:5}
-.step--2 > *,.step--3 > *,.step--4 > *{margin-top:clamp(56px,7vw,112px)}
+.exp h2{grid-column:1 / -1;font-size:var(--t-h2);font-weight:400;margin-bottom:clamp(36px,4vw,56px)}
+.exp ol{list-style:none;margin:0;padding:0;grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.step{display:flex;flex-direction:column;gap:20px}
+.step .ph{aspect-ratio:4/5}
+.step__n{display:block;font:400 clamp(30px,2.6vw,40px)/1 var(--serif);color:var(--olive);margin-bottom:10px}
+.step__text h3{font-size:clamp(22px,1.8vw,28px);font-weight:500;margin-bottom:8px}
+.step__fact{margin-top:12px;font-size:var(--t-small);font-weight:500;color:var(--olive-deep)}
+@media (max-width:1024px){.exp ol{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}}
 
 /* ---------- space (drag row) ---------- */
 .space{padding-top:var(--section)}
@@ -280,6 +275,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .quote--2{grid-column:5 / span 4;margin-top:clamp(40px,5vw,64px)}
 .quote--3{grid-column:9 / span 4;margin-top:clamp(40px,5vw,64px)}
 .quote figcaption{font-size:15px;color:var(--muted)}
+.stars{width:98px;height:18px;color:var(--olive)}
 .todo{color:var(--muted)}
 
 /* ---------- booking ---------- */
@@ -307,7 +303,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .loc__static strong{font:500 clamp(26px,2.6vw,38px)/1.1 var(--serif)}
 .loc__static span{font-size:16px;color:var(--on-dark-muted)}
 .loc__static em{font-style:normal;font-weight:500;text-decoration:underline;text-underline-offset:.35em}
-.loc__card{grid-column:9 / -1;align-self:center;display:flex;flex-direction:column;gap:28px}
+.loc__card{grid-column:9 / -1;align-self:start;display:flex;flex-direction:column;gap:28px}
 .loc__card h2{font-size:var(--t-h2);font-weight:400}
 .loc__card address{font-style:normal;font:400 var(--t-lead)/1.35 var(--serif)}
 .loc__card address strong{font-weight:600;display:block;margin-bottom:4px}
@@ -321,7 +317,9 @@ details[open] > summary .chev{transform:rotate(180deg)}
 
 /* ---------- faq ---------- */
 .faq{padding-block:var(--section)}
-.faq__col{grid-column:1 / span 6}
+.faq__col{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap)}
+.faq__col > h2{grid-column:1 / span 4;grid-row:1 / span 12;align-self:start;margin-bottom:0}
+.faq__col > details{grid-column:6 / -1}
 .faq h2{font-size:var(--t-h2);font-weight:400;margin-bottom:40px}
 .faq details{padding-block:10px}
 .faq details + details{margin-top:8px}
@@ -337,9 +335,9 @@ details[open] > summary .chev{transform:rotate(180deg)}
 @media (max-width:900px){
   .quote--1,.quote--2,.quote--3{grid-column:1 / -1;margin-top:48px}
 }
-@media (max-width:1180px){
-  .faq__col{grid-column:1 / -1}
-  .faq__photo{grid-column:1 / -1;width:min(640px,78%);justify-self:end;margin-top:72px}
+@media (max-width:1024px){
+  .faq__col > h2,.faq__col > details{grid-column:1 / -1}
+  .faq__col > h2{grid-row:auto;margin-bottom:32px}
 }
 
 /* ---------- final / footer ---------- */
@@ -391,10 +389,12 @@ details[open] > summary .chev{transform:rotate(180deg)}
   .grid{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:12px}
   .grid > *,.grid .step > *{grid-column:1 / -1 !important;grid-row:auto !important}
   .bar nav a:not(.btn){display:none}
-  .bar__mark .logo{height:19px}
+  .bar__mark .logo{height:20px}
+  .bar{height:64px}
   .bar .btn{white-space:nowrap;padding:0 16px}
   .hero{height:clamp(560px,100svh,900px)}
-  .hero__links{display:none}
+  .hero .ph > img{object-position:14% 50%}
+  .hero__scrim{background:linear-gradient(to top, rgba(30,20,14,.86) 0%, rgba(30,20,14,.6) 45%, rgba(30,20,14,0) 72%)} /* taste-skill-ignore: scrim */
   .hero h1{font-size:clamp(40px,11vw,56px);line-height:1.2}
   .hero__aside{gap:18px;margin-top:20px}
   .hero__aside p{font-size:16px}
@@ -414,9 +414,8 @@ details[open] > summary .chev{transform:rotate(180deg)}
   .sheet{margin-inline:calc(var(--m) * -1 + 10px);padding:32px 22px}
   .menu > li{margin-inline:-12px;padding-inline:12px}
   .exp h2{margin-bottom:36px}
-  .step .ph,.step .step__text{margin-top:0 !important;padding:0 !important}
-  .step .ph{width:100%}
-  .step__text{margin:22px 0 64px !important}
+  .exp ol{grid-template-columns:1fr;row-gap:44px}
+  .step .ph{aspect-ratio:3/2}
   .space__head{flex-direction:column;align-items:flex-start}
   .space__head p{text-align:left}
   .row{height:clamp(380px,62svh,640px);gap:8px}
@@ -440,7 +439,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
   .final__cta{margin-top:28px}
   .final__cols > div{grid-column:span 2 !important}
   .final__legal{padding-bottom:84px}
-  .dock{display:grid;grid-template-columns:1fr 1fr;position:fixed;z-index:60;inset:auto 0 0 0;height:calc(60px + env(safe-area-inset-bottom));
+  .dock{display:grid;grid-template-columns:1fr 1fr 1.3fr;position:fixed;z-index:60;inset:auto 0 0 0;height:calc(60px + env(safe-area-inset-bottom));
     padding-bottom:env(safe-area-inset-bottom);background:var(--ivory);transform:translateY(100%);transition:transform 360ms var(--ease-out)}
   .dock.is-on{transform:none}
   .dock a{display:flex;align-items:center;justify-content:center;font:500 15px/1 var(--sans);text-decoration:none;transition:transform 160ms var(--ease-out)}
@@ -466,6 +465,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
       <rect x="0" y="0" width="3" height="10" fill="rgba(30,18,10,.22)"/>
       <rect x="3" y="0" width="2" height="10" fill="rgba(255,236,206,.14)"/>
     </pattern>
+    <symbol id="star" viewBox="0 0 18 18"><path d="M9 1.2l2.4 5 5.4.6-4 3.7 1.1 5.4L9 13.2l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="currentColor"/></symbol>
     <symbol id="chev" viewBox="0 0 12 12"><path d="M1.5 4 6 8.5 10.5 4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   </defs>
 </svg>
@@ -490,20 +490,12 @@ details[open] > summary .chev{transform:rotate(180deg)}
       <figcaption>Photo: treatment room in low warm light (hero.jpg)</figcaption>
     </figure>
     <div class="hero__scrim" aria-hidden="true"></div>
-    <div class="hero__top">
-      <a class="hero__name" href="#top"><img class="logo" src="images/logo.png" width="662" height="72" alt="Chungdam Spa"></a>
-      <nav class="hero__links" aria-label="Sections">
-        <a href="#treatments">Treatments</a>
-        <a href="#space">Space</a>
-        <a href="#visit">Visit</a>
-      </nav>
-    </div>
     <div class="hero__bottom grid">
       <h1 id="hero-title">A quiet Korean wellness experience</h1>
       <div class="hero__aside">
         <p>Relax, restore and take a moment for yourself <span class="nw">at Chungdam Spa.</span></p>
         <div class="hero__actions" id="heroActions">
-          <a class="btn btn--light" href="#book">Book now <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" href="#book">Book now</a>
           <a class="link" href="#treatments">Explore treatments</a>
         </div>
       </div>
@@ -530,11 +522,6 @@ details[open] > summary .chev{transform:rotate(180deg)}
         <svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg>
         <img src="images/intro-towels.jpg" alt="Folded towels, a flower and massage oil on a wooden tray" loading="lazy" onerror="this.remove()">
         <figcaption>Photo: folded towels, warm light (intro-towels.jpg)</figcaption>
-      </figure>
-      <figure class="ph ph--olive intro__small" data-photo="intro-oil">
-        <svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg>
-        <img src="images/intro-oil.jpg" alt="Massage oils laid out on a wooden tray" loading="lazy" onerror="this.remove()">
-        <figcaption>Photo: hands with oil (intro-oil.jpg)</figcaption>
       </figure>
     </div>
   </section>
@@ -564,7 +551,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
           <p class="finder__price num" id="recPrice">From ₱1,150 · 1 to 2 hours</p>
         </div>
         <div class="finder__actions">
-          <a class="btn" id="finderView" href="#menu-qc-swedish">View Swedish prices <span class="arrow" aria-hidden="true">↓</span></a>
+          <a class="btn" id="finderView" href="#menu-qc-swedish">View Swedish prices</a>
           <a class="link" id="finderBook" href="#book">or book now</a>
         </div>
         </div>
@@ -610,18 +597,20 @@ details[open] > summary .chev{transform:rotate(180deg)}
             </li>
           </ul>
           <div class="extras">
-            <h3 class="extras__title">Stone massage</h3>
+            <div class="extras__group"><h3 class="extras__title">Stone massage</h3>
             <ul class="rates num">
               <li><span>Stone Massage</span><span>1 hr 20 min · ₱1,488</span></li>
             </ul>
-            <h3 class="extras__title">Short treatments</h3>
+</div>
+            <div class="extras__group"><h3 class="extras__title">Short treatments</h3>
             <ul class="rates num">
               <li><span>Foot Massage</span><span>45 min · ₱899</span></li>
-              <li><span>Foot Spa<small>Before 6 pm only</small></span><span>45 min · ₱899</span></li>
+              <li><span>Foot Spa <span class="tag">Before 6 pm</span></span><span>45 min · ₱899</span></li>
               <li><span>Ear Candling</span><span>30 min · ₱799</span></li>
               <li><span>Back Ventosa</span><span>30 min · ₱799</span></li>
             </ul>
-            <h3 class="extras__title">Package promos</h3>
+</div>
+            <div class="extras__group"><h3 class="extras__title">Package promos</h3>
             <p class="extras__note">Ask for the promo price when you book.</p>
             <ul class="rates num">
               <li><span>Foot &amp; Back 1 hr + Ear Candling 30 min</span><span>1 hr 30 min</span></li>
@@ -633,6 +622,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
               <li><span>Shiatsu 1 hr + Back Ventosa 30 min</span><span>1 hr 30 min</span></li>
               <li><span>Shiatsu 1 hr + Foot Massage 45 min</span><span>1 hr 45 min</span></li>
             </ul>
+</div>
           </div>
         </div>
         <div class="branch" id="branch-bgc" role="tabpanel" aria-labelledby="tab-bgc" hidden>
@@ -668,17 +658,19 @@ details[open] > summary .chev{transform:rotate(180deg)}
             </li>
           </ul>
           <div class="extras">
-            <h3 class="extras__title">Stone massage</h3>
+            <div class="extras__group"><h3 class="extras__title">Stone massage</h3>
             <ul class="rates num">
               <li><span>Stone Massage</span><span>1 hr 20 min · ₱1,688</span></li>
             </ul>
-            <h3 class="extras__title">Short treatments</h3>
+</div>
+            <div class="extras__group"><h3 class="extras__title">Short treatments</h3>
             <ul class="rates num">
               <li><span>Foot Massage</span><span>45 min · ₱988</span></li>
-              <li><span>Foot Spa<small>Before 6 pm only</small></span><span>45 min · ₱988</span></li>
+              <li><span>Foot Spa <span class="tag">Before 6 pm</span></span><span>45 min · ₱988</span></li>
               <li><span>Ear Candling</span><span>30 min · ₱899</span></li>
               <li><span>Back Ventosa</span><span>30 min · ₱899</span></li>
             </ul>
+</div>
           </div>
         </div>
         <div class="branch" id="branch-banawe" role="tabpanel" aria-labelledby="tab-banawe" hidden>
@@ -703,17 +695,19 @@ details[open] > summary .chev{transform:rotate(180deg)}
             </li>
           </ul>
           <div class="extras">
-            <h3 class="extras__title">Stone massage</h3>
+            <div class="extras__group"><h3 class="extras__title">Stone massage</h3>
             <ul class="rates num">
               <li><span>Stone Massage</span><span>1 hr 20 min</span></li>
             </ul>
-            <h3 class="extras__title">Short treatments</h3>
+</div>
+            <div class="extras__group"><h3 class="extras__title">Short treatments</h3>
             <ul class="rates num">
               <li><span>Foot Massage</span><span>45 min</span></li>
-              <li><span>Foot Spa<small>Before 6 pm only</small></span><span>45 min</span></li>
+              <li><span>Foot Spa <span class="tag">Before 6 pm</span></span><span>45 min</span></li>
               <li><span>Ear Candling</span><span>30 min</span></li>
               <li><span>Back Ventosa</span><span>30 min</span></li>
             </ul>
+</div>
           </div>
         </div>
         <div class="sheet__foot"><a class="link" href="#book">Book a treatment</a></div>
@@ -729,14 +723,17 @@ details[open] > summary .chev{transform:rotate(180deg)}
       <!-- English wording below is re-translated from Google's Korean translation of each review.
            Replace with the original English text (use "See original") before launch. -->
       <figure class="quote quote--1" data-reveal>
+        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
         <blockquote><p>“Nothing stuffy like other spas. It felt as cozy as staying at a hotel, and the massage was the best. 10 out of 10!”</p></blockquote>
         <figcaption>Fatima Torres · Google review</figcaption>
       </figure>
       <figure class="quote quote--2" data-reveal>
+        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
         <blockquote><p>“I’m not usually a fan of dry massage, but this one was the exception. So thorough, and my knots really loosened.”</p></blockquote>
         <figcaption>Nikki Delos Santos-Francisco · Google review</figcaption>
       </figure>
       <figure class="quote quote--3" data-reveal>
+        <svg class="stars" viewBox="0 0 98 18" aria-hidden="true"><use href="#star" x="0" width="18" height="18"/><use href="#star" x="20" width="18" height="18"/><use href="#star" x="40" width="18" height="18"/><use href="#star" x="60" width="18" height="18"/><use href="#star" x="80" width="18" height="18"/></svg><span class="sr-only">Rated 5 out of 5</span>
         <blockquote><p>“Just had the best massage! Thanks to therapist Charlie, the stiffness was gone. The complimentary warm tea was great too.”</p></blockquote>
         <figcaption>Mark Rodriguez · Google review</figcaption>
       </figure>
@@ -745,7 +742,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
 
   <!-- 06 THE EXPERIENCE -->
   <section class="exp wrap" aria-labelledby="exp-title">
-    <div class="grid">
+    <div class="grid exp__grid">
       <h2 id="exp-title" data-reveal><span>Your time at Chungdam</span></h2>
       <ol>
         <li class="step step--1">
@@ -754,7 +751,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-arrive.jpg" alt="A guest checking in at a softly lit reception desk" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: reception (exp-arrive.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door.</p><p class="step__fact">No deposit needed to book.</p></div>
         </li>
         <li class="step step--2">
           <figure class="ph ph--olive" data-photo="exp-choose">
@@ -762,7 +759,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-choose.jpg" alt="A therapist showing a guest the treatment menu" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: choosing a treatment (exp-choose.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Select a treatment based on your preferred pressure and how your body feels.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Pick a treatment by how your body feels today.</p><p class="step__fact">Request your therapist by name.</p></div>
         </li>
         <li class="step step--3">
           <figure class="ph ph--dark" data-photo="exp-relax">
@@ -770,7 +767,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-relax.jpg" alt="A massage in progress in a dim treatment room" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: therapy in progress (exp-relax.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace.</p><p class="step__fact">One group per room, freshly made.</p></div>
         </li>
         <li class="step step--4">
           <figure class="ph" data-photo="exp-tea">
@@ -778,7 +775,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-tea.jpg" alt="A guest holding a cup of warm tea after a treatment" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: tea after treatment (exp-tea.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day.</p><p class="step__fact">Open daily until 1 AM.</p></div>
         </li>
       </ol>
     </div>
@@ -792,15 +789,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
     <div class="row" id="row" tabindex="0" aria-label="Photographs of the space, scroll sideways">
       <div class="mod mod--tall"><figure class="ph ph--dark" data-photo="space-reception"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-reception.jpg" alt="A lounge corner with a sofa, a plant and warm light" loading="lazy" onerror="this.remove()"><figcaption>Lounge (space-reception.jpg)</figcaption></figure></div>
       <div class="mod mod--wide"><figure class="ph ph--dark" data-photo="space-treatment"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-treatment.jpg" alt="A treatment room with a made-up massage bed" loading="lazy" onerror="this.remove()"><figcaption>Treatment room (space-treatment.jpg)</figcaption></figure></div>
-      <div class="mod mod--pair">
-        <figure class="ph" data-photo="space-oil"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-oil.jpg" alt="Massage oils" loading="lazy" onerror="this.remove()"><figcaption>Oils (space-oil.jpg)</figcaption></figure>
-        <figure class="ph ph--olive" data-photo="space-towels"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-towels.jpg" alt="Stacked white towels on a wooden tray" loading="lazy" onerror="this.remove()"><figcaption>Towels (space-towels.jpg)</figcaption></figure>
-      </div>
       <div class="mod mod--wide"><figure class="ph" data-photo="space-room"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-room.jpg" alt="An empty treatment room in warm, low light" loading="lazy" onerror="this.remove()"><figcaption>Room (space-room.jpg)</figcaption></figure></div>
-      <div class="mod mod--pair">
-        <figure class="ph ph--dark" data-photo="space-light"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-light.jpg" alt="A candle and a plant against a softly lit wall" loading="lazy" onerror="this.remove()"><figcaption>Lighting (space-light.jpg)</figcaption></figure>
-        <figure class="ph" data-photo="space-bed"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/space-bed.jpg" alt="A massage bed made up with fresh linen" loading="lazy" onerror="this.remove()"><figcaption>Bed (space-bed.jpg)</figcaption></figure>
-      </div>
     </div>
     <p class="space__hint wrap">Drag or scroll sideways to see more.</p>
   </section>
@@ -822,17 +811,12 @@ details[open] > summary .chev{transform:rotate(180deg)}
 
   <!-- 09 BOOKING CTA -->
   <section class="book on-dark" id="book" aria-labelledby="book-title">
-    <div class="book__strip">
-      <figure class="ph ph--dark" data-photo="book-1"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/book-1.jpg" alt="A candle on a stone reception counter" loading="lazy" onerror="this.remove()"><figcaption>book-1.jpg</figcaption></figure>
-      <figure class="ph ph--olive" data-photo="book-2"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/book-2.jpg" alt="A candle and a plant on a wooden shelf" loading="lazy" onerror="this.remove()"><figcaption>book-2.jpg</figcaption></figure>
-      <figure class="ph" data-photo="book-3"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/book-3.jpg" alt="A ceramic teapot and a rolled towel on a wooden tray" loading="lazy" onerror="this.remove()"><figcaption>book-3.jpg</figcaption></figure>
-    </div>
     <div class="book__field wrap">
       <div class="grid">
         <h2 id="book-title">Ready to take a break?</h2>
         <p class="lead">Choose your treatment and reserve your time at Chungdam Spa.</p>
         <div class="book__actions">
-          <a class="btn btn--light" id="bookMain" href="sms:+639955742688">Book your treatment <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--light" id="bookMain" href="sms:+639955742688">Book your treatment</a>
           <a class="link" href="tel:+639955742688">Or call <span class="num">0995 574 2688</span></a>
         </div>
       </div>
@@ -885,10 +869,6 @@ details[open] > summary .chev{transform:rotate(180deg)}
         <details><summary>Is parking available? <svg class="chev" aria-hidden="true"><use href="#chev"/></svg></summary><p class="ans">Rosemont Tower has parking for guests on Panay Ave. <span class="ex">(Example)</span></p></details>
         <details><summary>Do you have other branches? <svg class="chev" aria-hidden="true"><use href="#chev"/></svg></summary><p class="ans">Yes. Besides Quezon City, we’re in BGC and Banawe, all open daily from <span class="nw">2 PM to 1 AM</span>. Prices may differ by branch.</p></details>
       </div>
-      <div class="faq__photo">
-        <figure class="ph ph--dark" data-photo="faq-room"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/faq-room.jpg" alt="A quiet treatment room ready for a guest" loading="lazy" onerror="this.remove()"><figcaption>Photo: room ready (faq-room.jpg)</figcaption></figure>
-        <figure class="ph ph--small" data-photo="faq-detail"><svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg><img src="images/faq-detail.jpg" alt="A glass bottle of massage oil" loading="lazy" onerror="this.remove()"><figcaption>faq-detail.jpg</figcaption></figure>
-      </div>
     </div>
   </section>
 </main>
@@ -900,7 +880,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
       <h2 id="final-title">Your time to unwind.</h2>
       <div class="final__cta">
         <p>Rosemont Tower GF, 75 Panay Ave, Quezon City</p>
-        <a class="btn btn--light" href="#book">Book now <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--light" href="#book">Book now</a>
       </div>
     </div>
     <div class="grid final__cols">
@@ -917,7 +897,8 @@ details[open] > summary .chev{transform:rotate(180deg)}
 </footer>
 
 <nav class="dock" id="dock" aria-label="Quick actions">
-  <a href="#treatments">View menu</a>
+  <a href="#treatments">Menu</a>
+  <a href="#visit">Visit</a>
   <a href="#book">Book now</a>
 </nav>
 
@@ -935,7 +916,9 @@ const smsHref = (body) => {
   const sep = /iPhone|iPad|Mac/.test(navigator.userAgent) ? '&' : '?';
   return `sms:${CONFIG.phone}${sep}body=${encodeURIComponent(body)}`;
 };
-const bookHref = (body) => CONFIG.bookingUrl || smsHref(body);
+// phones text the branch; computers open the Facebook page, where Messenger is one click away
+const canText = matchMedia('(pointer: coarse)').matches;
+const bookHref = (body) => CONFIG.bookingUrl || (canText ? smsHref(body) : CONFIG.social.facebook || `tel:${CONFIG.phone}`);
 
 /* social links: render as links only when real URLs exist */
 (function socials(){
@@ -952,6 +935,7 @@ const bookHref = (body) => CONFIG.bookingUrl || smsHref(body);
 const mainBody = "Hi Chungdam Spa, I'd like to book a treatment.";
 document.getElementById('bookMain').href = bookHref(mainBody);
 if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a => { a.href = CONFIG.bookingUrl; a.target = '_blank'; a.rel = 'noopener'; });
+document.querySelectorAll('#bookMain, #finderBook').forEach(a => { if (!a.href.startsWith('sms:')) { a.target = '_blank'; a.rel = 'noopener'; } });
 
 /* ---- the finder ---- */
 (function finder(){
@@ -972,7 +956,7 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
     const from = (FROM[window.CD_BRANCH || 'qc'] || {})[r.id];
     $('recPrice').textContent = from ? `From ${from} · ${LENGTH[r.id]}` : LENGTH[r.id];
     $('finderView').href = `#menu-${window.CD_BRANCH || 'qc'}-${r.id}`;
-    $('finderView').firstChild.textContent = `View ${r.name} prices `;
+    $('finderView').textContent = `View ${r.name} prices`;
     $('finderBook').href = bookHref(`Hi Chungdam Spa, I'd like to book ${r.name}. Date and time: `);
     document.querySelectorAll('.menu > li').forEach(li => li.classList.toggle('is-match', li.dataset.t === r.id));
   }
@@ -1020,21 +1004,24 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
     $('locSocialDt').hidden = $('locSocialDd').hidden = !social;
     if (social) $('locSocialDd').innerHTML = social;
   }
-  function select(code, focusTab){
+  function select(code, focusTab, anchor){
+    // the two tab rows resize each other's sections; keep the row the visitor used still on screen
+    const before = anchor && anchor.getBoundingClientRect().top;
     tabs.forEach(t => { const on = t.dataset.branch === code; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     ['qc', 'bgc', 'banawe'].forEach(c => { const panel = $('branch-' + c); if (panel) panel.hidden = c !== code; });
     window.CD_BRANCH = code;
     showLocation(code);
-    if (focusTab) focusTab.focus();
+    if (anchor) scrollBy(0, anchor.getBoundingClientRect().top - before);
+    if (focusTab) focusTab.focus({ preventScroll: true });
     document.dispatchEvent(new Event('branchchange'));
   }
   document.querySelectorAll('[role=tablist]').forEach(listEl => {
     const own = [...listEl.querySelectorAll('[role=tab][data-branch]')];
     own.forEach((t, i) => {
-      t.addEventListener('click', () => select(t.dataset.branch));
+      t.addEventListener('click', () => select(t.dataset.branch, null, listEl));
       t.addEventListener('keydown', ev => {
         const d = ev.key === 'ArrowRight' ? 1 : ev.key === 'ArrowLeft' ? -1 : 0;
-        if (d) { ev.preventDefault(); const n = own[(i + d + own.length) % own.length]; select(n.dataset.branch, n); }
+        if (d) { ev.preventDefault(); const n = own[(i + d + own.length) % own.length]; select(n.dataset.branch, n, listEl); }
       });
     });
   });
@@ -1064,13 +1051,14 @@ if (CONFIG.bookingUrl) document.querySelectorAll('a[href="#book"]').forEach(a =>
 /* ---- hero: very slow scale with scroll ---- */
 (function heroScale(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const ph = document.getElementById('heroPhoto');
+  const ph = document.querySelector('#heroPhoto > img');
+  if (!ph) return;
   let ticking = false;
   addEventListener('scroll', () => {
     if (ticking) return; ticking = true;
     requestAnimationFrame(() => {
       const p = Math.min(1, scrollY / innerHeight);
-      ph.style.transform = `scale(${1 + p * 0.08}) translateY(${p * 4}%)`;
+      ph.style.transform = `translate3d(0, ${(p * 3).toFixed(3)}%, 0) scale(${(1 + p * 0.06).toFixed(4)})`;
       ticking = false;
     });
   }, { passive: true });
