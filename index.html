@@ -150,13 +150,15 @@ p{margin:0;text-wrap:pretty}
 .intro__small > img{object-position:72% 50%}
 /* the magazine's small colour block: olive field with the logo pressed into it */
 .intro__block{grid-column:8 / span 3;grid-row:2;align-self:start;aspect-ratio:3/2;background:var(--olive)}
-/* collage (from the sketch): copy top-left, towel top-right, sign below overlapping the towel, olive block on top */
+/* collage (from the reference): copy top-left, towel top-right, sign bottom-left over the towel's corner,
+   olive block bottom-right beside the sign; everything inside the page margins */
 @media (min-width:761px){
-  .intro .grid{grid-template-rows:auto repeat(12,clamp(38px,3.6vw,52px));row-gap:0}
-  .intro__copy{grid-column:1 / span 6;grid-row:1;align-self:start;padding-bottom:clamp(28px,3vw,48px)}
-  .intro__big{grid-column:7 / -1;grid-row:1 / 5;aspect-ratio:auto;margin-right:calc(var(--m) * -1);z-index:1}
-  .intro__small{grid-column:1 / 9;grid-row:2 / 14;aspect-ratio:auto;margin-left:calc(var(--m) * -1);margin-top:clamp(28px,3vw,48px);z-index:2}
-  .intro__block{grid-column:8 / -1;grid-row:3 / 14;aspect-ratio:auto;align-self:stretch;margin-left:calc(var(--gap) * -1);margin-right:calc(var(--m) * -1);z-index:0}
+  .intro .grid{grid-template-rows:auto repeat(10,clamp(34px,3.4vw,50px));row-gap:0}
+  .intro__copy{grid-column:1 / span 5;grid-row:1;align-self:start;padding-bottom:clamp(28px,3vw,48px)}
+  .intro h2{font-size:clamp(34px,3.7vw,60px)}
+  .intro__big{grid-column:6 / -1;grid-row:1 / 4;aspect-ratio:auto;margin:0;z-index:1}
+  .intro__small{grid-column:1 / 8;grid-row:3 / 12;aspect-ratio:auto;margin:0;z-index:2;outline:clamp(6px,.8vw,12px) solid var(--ivory)}
+  .intro__block{grid-column:8 / -1;grid-row:4 / 12;aspect-ratio:auto;align-self:stretch;margin:clamp(8px,1vw,14px) 0 0;z-index:0}
 }
 
 /* ---------- treatments ---------- */
