@@ -141,14 +141,15 @@ p{margin:0;text-wrap:pretty}
 
 /* ---------- intro ---------- */
 .intro{padding-top:var(--section);position:relative}
-.intro .grid{grid-template-rows:auto 1fr}
+.intro .grid{grid-template-rows:auto auto 1fr auto}
 .intro h2{grid-column:1 / span 8;grid-row:1;font-size:clamp(46px,5.4vw,84px);font-weight:400;position:relative;z-index:2;padding-top:4vw}
-.intro__mark{grid-column:1 / span 6;grid-row:2;align-self:end;aspect-ratio:662 / 72;margin-bottom:clamp(8px,2vw,32px);
+.intro__mark{grid-column:1 / span 6;grid-row:4;align-self:end;margin-top:clamp(40px,5vw,72px);aspect-ratio:662 / 72;margin-bottom:clamp(8px,2vw,32px);
   background:rgba(58,42,32,.075); /* tint, not opacity: the reveal animation owns opacity */
   -webkit-mask:var(--logo-mask) left bottom / contain no-repeat;mask:var(--logo-mask) left bottom / contain no-repeat}
 .intro__lead{grid-column:1 / span 5;grid-row:2;align-self:start;margin-top:40px;font:400 var(--t-lead)/1.42 var(--serif);max-width:30ch}
-.intro__big{grid-column:7 / -1;grid-row:1 / span 2;aspect-ratio:4/5;margin-right:calc(var(--m) * -1);align-self:start;margin-top:12vw}
-.intro__small{grid-column:2 / span 4;grid-row:3;aspect-ratio:9/10;margin-top:64px}
+.intro__small{grid-column:1 / span 5;grid-row:3;align-self:start;aspect-ratio:4/3;margin-top:clamp(40px,5vw,64px)}
+.intro__small > img{object-position:72% 50%}
+.intro__big{grid-column:7 / -1;grid-row:1 / span 3;aspect-ratio:4/5;margin-right:calc(var(--m) * -1);align-self:start;margin-top:12vw}
 
 /* ---------- treatments ---------- */
 .treat{background:var(--olive);color:var(--on-dark);margin-top:var(--section);padding-block:var(--section)}
@@ -228,7 +229,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .exp h2{grid-column:1 / -1;font-size:var(--t-h2);font-weight:400;margin-bottom:clamp(36px,4vw,56px)}
 .exp ol{list-style:none;margin:0;padding:0;grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
 .step{display:flex;flex-direction:column;gap:20px}
-.step .ph{aspect-ratio:4/5}
+.step .ph{aspect-ratio:4/5;border-radius:var(--radius)}
 .step__n{display:block;font:400 clamp(30px,2.6vw,40px)/1 var(--serif);color:var(--olive);margin-bottom:10px}
 .step__text h3{font-size:clamp(22px,1.8vw,28px);font-weight:500;margin-bottom:8px}
 @media (max-width:1024px){.exp ol{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}}
@@ -414,7 +415,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
   .sheet{order:3}
   .intro h2{padding-top:0;font-size:clamp(34px,10vw,46px)}
   .intro__big{width:78%;justify-self:end;margin-top:36px}
-  .intro__small{width:52%;margin-top:-80px;position:relative;z-index:2;outline:8px solid var(--ivory)}
+  .intro__small{width:72%;margin-top:24px}
   .intro__lead{margin-top:28px}
   .intro__mark{order:3;margin-top:40px}
   .finder{margin-top:40px}
@@ -530,6 +531,11 @@ details[open] > summary .chev{transform:rotate(180deg)}
         <svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg>
         <img src="images/intro-towels.jpg" alt="Folded towels, a flower and massage oil on a wooden tray" loading="lazy" onerror="this.remove()">
         <figcaption>Photo: folded towels, warm light (intro-towels.jpg)</figcaption>
+      </figure>
+      <figure class="ph ph--dark intro__small" data-photo="intro-sign">
+        <svg class="lat" aria-hidden="true"><rect width="100%" height="100%" fill="url(#lattice)"/></svg>
+        <img src="images/intro-sign.jpg" alt="The Chungdam Spa sign on a lit wooden wall beside the reception" loading="lazy" onerror="this.remove()">
+        <figcaption>Photo: reception sign (intro-sign.jpg)</figcaption>
       </figure>
     </div>
   </section>
@@ -759,7 +765,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-arrive.jpg" alt="A guest checking in at a softly lit reception desk" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: reception (exp-arrive.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">01</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Arrive</h3><p>Welcome to Chungdam Spa. Leave the street noise at the door. Your room is already warm.</p></div>
         </li>
         <li class="step step--2">
           <figure class="ph ph--olive" data-photo="exp-choose">
@@ -767,7 +773,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-choose.jpg" alt="A therapist showing a guest the treatment menu" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: choosing a treatment (exp-choose.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Pick a treatment by how your body feels today.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">02</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Choose your treatment</h3><p>Pick a treatment by how your body feels today. Ask for your favourite therapist by name.</p></div>
         </li>
         <li class="step step--3">
           <figure class="ph ph--dark" data-photo="exp-relax">
@@ -775,7 +781,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-relax.jpg" alt="A massage in progress in a dim treatment room" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: therapy in progress (exp-relax.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">03</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Relax</h3><p>Your therapist guides you through your treatment, at your pace. The room is yours alone.</p></div>
         </li>
         <li class="step step--4">
           <figure class="ph" data-photo="exp-tea">
@@ -783,7 +789,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
             <img src="images/exp-tea.jpg" alt="A guest holding a cup of warm tea after a treatment" loading="lazy" onerror="this.remove()">
             <figcaption>Photo: tea after treatment (exp-tea.jpg)</figcaption>
           </figure>
-          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day.</p></div>
+          <div class="step__text" data-reveal><span class="step__n num" aria-hidden="true">04</span><!-- taste-skill-ignore: visit sequence pinned by the brief --><h3>Take your time</h3><p>Slow down before you return to your day. There’s no need to hurry.</p></div>
         </li>
       </ol>
     </div>
